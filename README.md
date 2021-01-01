@@ -8,10 +8,14 @@
 ## Title: BukuHutang
 
 ## Introduction
-BukuHutang is a mobile application project that focus on tracking debt.
+BukuHutang is a mobile application project that focus on debt transaction. This app allow you to manage your debts and track people who owe you.
 
 ## Objective
+    1. Manage debt transaction - allows you to track the debts you owe and the debts owed to you
+    2. Remind and help you payoff your debt earlier
 
 ## Features and Functionalities
 
-## Sequence Diagra
+## Sequence Diagram
+
+## References
