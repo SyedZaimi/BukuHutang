@@ -1,9 +1,9 @@
 ## Group Name: Al-Mukminin
 
 ## Group Member Details
-1. ABDUL RAHMAN BIN AHMAD (1721823)
-2. SYED ZAIMI PUTRA AL-JAMALULLAIL BIN SYED YUSOFF (1728655)
-3. HANNAH BINTI HUDA (1814022)
+      1. ABDUL RAHMAN BIN AHMAD (1721823)
+      2. SYED ZAIMI PUTRA AL-JAMALULLAIL BIN SYED YUSOFF (1728655)
+      3. HANNAH BINTI HUDA (1814022)
 
 ## Title: BukuHutang
 
@@ -15,6 +15,13 @@ BukuHutang is a mobile application project that focus on debt transaction. This 
     2. Remind and help you payoff your debt earlier
 
 ## Features and Functionalities
+    1. Login/Logout 
+    2. Add and delete hutang with date
+    3. Count total hutang 
+    4. Due date notification
+
+## Screen Navigation 
+
 
 ## Sequence Diagram
 
