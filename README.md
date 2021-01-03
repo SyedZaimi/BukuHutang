@@ -21,7 +21,9 @@ BukuHutang is a mobile application project that focus on debt transaction. This 
     4. Due date notification
 
 ## Screen Navigation 
+In this poject, the routes are registered in the MatrialApp() root widget. The screen navigate with named routes, runs to a new widget using push() and back to the previous screen using pop().
 
+![alt text](ScreenNavigation.jpg)
 
 ## Sequence Diagram
 
