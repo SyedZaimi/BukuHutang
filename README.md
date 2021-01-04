@@ -29,7 +29,7 @@ In this poject, the routes are registered in the MaterialApp() root widget. The 
 
 BukuHutang
 
-![alt text](sequencediagram.jpg)
+![alt text](sequencediagram.png)
 
 
 ## References
