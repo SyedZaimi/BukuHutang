@@ -27,4 +27,9 @@ In this poject, the routes are registered in the MaterialApp() root widget. The 
 
 ## Sequence Diagram
 
+BukuHutang
+
+![alt text](sequencediagram.jpg)
+
+
 ## References
