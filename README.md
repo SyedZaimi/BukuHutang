@@ -16,8 +16,8 @@ BukuHutang is a mobile application project that focus on debt transaction. This 
 
 ## Features and Functionalities
     1. Login/Logout 
-    2. Add and delete hutang with date
-    3. Count total hutang 
+    2. Add and delete debt with date
+    3. Count total debt from and to you 
     4. Due date notification
 
 ## Screen Navigation 
