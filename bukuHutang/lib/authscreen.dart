@@ -3,6 +3,7 @@
 //import 'package:bukuHutang/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:bukuHutang/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,6 +13,8 @@ String email;
 String imageUrl;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
+FirebaseFirestore firestore = FirebaseFirestore.instance;
+CollectionReference users = FirebaseFirestore.instance.collection('users');
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -34,7 +37,10 @@ class _AuthScreenState extends State<AuthScreen> {
     // final AuthResult authResult = await auth.signInWithCredential(credential);
     // final User user = authResult.user;
     //Create a new document for user with the uid
+    //final FirebaseUser _user;
     User user;
+    //await _auth.signInWithCredential(credential);
+    //_user = await _auth.currentUser();
     //await DatabaseService(uid: user.uid).updateUserData('0', 100);
 
     user = (await auth.signInWithCredential(credential)).user;
@@ -42,9 +48,22 @@ class _AuthScreenState extends State<AuthScreen> {
       name = user.displayName;
       email = user.email;
       imageUrl = user.photoURL;
+      /*firestore
+          .collection("users")
+          .document(user.uid)
+          .setData(user.toMap(user));*/
     }
     return user;
   }
+
+  /*Future<bool> isNewUser(FirebaseUser user) async {
+    QuerySnapshot result = await firestore
+        .collection("users")
+        .where("email", isEqualTo: user.email)
+        .getDocuments();
+    final List<DocumentSnapshot> docs = result.documents;
+    return docs.length == 0 ? true : false;
+  }*/
 
   @override
   Widget build(BuildContext context) {
