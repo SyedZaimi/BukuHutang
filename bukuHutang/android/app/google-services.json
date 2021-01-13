@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "867712436548",
+    "project_id": "bukuhutang-729bc",
+    "storage_bucket": "bukuhutang-729bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867712436548:android:f9f73069c7d9b4314aaf11",
+        "android_client_info": {
+          "package_name": "com.almukminin.bukuHutang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867712436548-1fhhhkahc8ahgektjeci7g86si2ofn7e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.almukminin.bukuHutang",
+            "certificate_hash": "98def4467a9712528cdafc6b3175a44ade8919ae"
+          }
+        },
+        {
+          "client_id": "867712436548-u4es51uhi2uhhqvfc36ern42642v6eji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk-5R80QMfjCj8xHDskcSY7Ok6PxTxgkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867712436548-u4es51uhi2uhhqvfc36ern42642v6eji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

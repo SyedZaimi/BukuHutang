@@ -1,67 +1,34 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-//import 'package:provider/provider.dart';
-import 'package:bukuHutang/View/sign_in_view_mode.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:bukuHutang/home.dart';
+import 'package:bukuHutang/SplashScreen.dart';
+import 'package:bukuHutang/owepage.dart';
+import 'package:bukuHutang/debtpage.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Prefs.init();
-  setLocator();
-  runApp(MultiProvider(
-    child: MyApp(),
-    providers: [
-      ChangeNotifierProvider<HomeViewModel>(
-        builder: (_) => HomeViewModel(),
-      ),
-    ],
-  ));
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  Locale locale;
-  bool localeLoaded = false;
-
-  @override
-  void initState() {
-    super.initState();
-    print('initState()');
-
-    //MyApp.setLocale(context, locale);
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.grey[400],
-//        statusBarColor: Styles.blueColor,
-        statusBarIconBrightness:
-            Brightness.light //or set color with: Color(0xFF0000FF)
-        ));
-    return ChangeNotifierProvider<SignInViewModel>(
-      builder: (_) => SignInViewModel(),
-      child: Center(
-        child: MaterialApp(
-          initialRoute: '/',
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: Routes.onGenerateRoute,
-          theme: ThemeData(
-            primaryColor: Colors.black,
-            fontFamily: 'FA',
-          ),
+    final appTitle = 'Buku Hutang';
+
+    return MaterialApp(
+        title: appTitle,
+        theme: ThemeData(
+          primarySwatch: Colors.green,
         ),
-      ),
-    );
+        initialRoute: '/SplashScreen',
+        routes: {
+          '/SplashScreen': (context) => SplashScreen(),
+          '/home': (context) => Mainpage(
+                username: null,
+              ),
+          '/second': (context) => Debtpage(),
+          '/third': (context) => Owepage(),
+        });
   }
 }
