@@ -31,6 +31,26 @@ BukuHutang
 
 ![alt text](sequencediagram.png)
 
+## Task Distribution
 
+### Syed Zaimi
+      1.
+      2.
+      
+ ### Rahman
+      1.
+      2.
+      
+### Hannah Huda
+      1.
+      2.
+      
 ## References
+Flutter Authentication
+      1. https://medium.com/flutterdevs/google-sign-in-with-flutter-8960580dec96
+      2. http://www.codeplayon.com/2020/02/simple-flutter-login-screen-ui-example/
+Firebase
       1. https://firebase.google.com/docs/projects/learn-more#config-files-objects
+      2. https://firebase.google.com/docs/projects/learn-more#config-files-objects
+Firestore
+      1. https://firebase.flutter.dev/docs/firestore/usage/
