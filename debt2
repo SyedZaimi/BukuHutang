@@ -14,11 +14,11 @@ class Debtpage extends StatefulWidget {
 }
 
 class DebtpageState extends State<Debtpage> {
-  Future<void> addUser() {
+  Future<void> addUser(String name, double amount) {
     return users
         .add({
-          'name': 'Hannah ',
-          'amount': 5000,
+          'name': name,
+          'amount': amount,
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
@@ -27,8 +27,67 @@ class DebtpageState extends State<Debtpage> {
   @override
   Widget build(BuildContext context) {
     final appTitle = 'People who you owe: ';
+    String _name = "";
+    double _amount = 0;
 
-    
+    void _setName(String name) {
+      setState(() {
+        _name = name;
+      });
+    }
+
+    void _setAmount(String amount) {
+      setState(() {
+        _amount = double.tryParse(amount) ?? 0.0;
+      });
+    }
+
+    void _showDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text("BMI Status", textAlign: TextAlign.center),
+            content: Column(
+              children: <Widget>[
+                Text('Input name and amount: '),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Name',
+                  ),
+                  onChanged: (text) {
+                    _setName(text);
+                  },
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Amount',
+                  ),
+                  onChanged: (text) {
+                    _setAmount(text);
+                  },
+                  keyboardType: TextInputType.number,
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Add"),
+                onPressed: () => addUser(_name, _amount),
+              ),
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +104,9 @@ class DebtpageState extends State<Debtpage> {
       floatingActionButton: FloatingActionButton(
         tooltip: 'Increment Counter',
         child: Icon(Icons.add),
-        onPressed: () => addUser(),
+        onPressed: () {
+          _showDialog();
+        },
       ),
     );
   }
