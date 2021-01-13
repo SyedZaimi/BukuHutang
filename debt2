@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+FirebaseFirestore firestore = FirebaseFirestore.instance;
+CollectionReference users = FirebaseFirestore.instance.collection('debts');
+
+class Debtpage extends StatefulWidget {
+  Debtpage({Key key}) : super(key: key);
+  @override
+  DebtpageState createState() {
+    return DebtpageState();
+  }
+}
+
+class DebtpageState extends State<Debtpage> {
+  Future<void> addUser() {
+    return users
+        .add({
+          'name': 'Hannah ',
+          'amount': 5000,
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final appTitle = 'People who you owe: ';
+
+    
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(appTitle),
+      ),
+      body: ListView.builder(
+        //itemCount: debt.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text('yes'),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Increment Counter',
+        child: Icon(Icons.add),
+        onPressed: () => addUser(),
+      ),
+    );
+  }
+}
