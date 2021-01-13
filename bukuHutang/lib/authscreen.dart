@@ -46,73 +46,92 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     var swidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          /*Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("loan.png"), fit: BoxFit.cover))),*/
-          Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(10),
-            child: Text(
-              'Buku Hutang',
-              style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 30),
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Visibility(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFB2F2D52)),
-                ),
-                visible: isVisible,
-              )
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(
-              bottom: 60.0,
-            ),
-            child: Align(
-              alignment: Alignment(0, 0.4),
-              child: SizedBox(
-                height: 54.0,
-                width: swidth / 1.45,
-                child: RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      this.isVisible = true;
-                    });
-                    _signIn().whenComplete(() {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => Mainpage(username: name)),
-                          (Route<dynamic> route) => false);
-                    }).catchError((onError) {
-                      Navigator.pushReplacementNamed(context, "/auth");
-                    });
-                  },
-                  child: Text(
-                    'Sign In with Google',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
-                  elevation: 5,
-                  color: Color(0XFFF7C88C),
-                ),
-              ),
-            ),
-          ),
-        ],
+        body: Stack(children: <Widget>[
+      Container(
+        decoration: BoxDecoration(color: Colors.green[300]),
       ),
-    );
+      Expanded(
+          flex: 1,
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 50.0,
+                  child: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: Colors.greenAccent,
+                    size: 50.0,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    'Buku Hutang',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 30),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Visibility(
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0xFFFAFAFA)),
+                      ),
+                      visible: isVisible,
+                    )
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    bottom: 50.0,
+                  ),
+                  child: Align(
+                    alignment: Alignment(0, 0.9),
+                    child: SizedBox(
+                      height: 54.0,
+                      width: swidth / 1.45,
+                      child: RaisedButton(
+                        onPressed: () {
+                          setState(() {
+                            this.isVisible = true;
+                          });
+                          _signIn().whenComplete(() {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Mainpage(username: name)),
+                                (Route<dynamic> route) => false);
+                          }).catchError((onError) {
+                            Navigator.pushReplacementNamed(context, "/auth");
+                          });
+                        },
+                        child: Text(
+                          'Sign in with Google',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                        elevation: 5,
+                        color: Color(0xFFFAFAFA),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ))
+    ]));
   }
 }

@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        initialRoute: '/SplashScreen',
+        initialRoute: '/',
         routes: {
-          '/SplashScreen': (context) => SplashScreen(),
+          '/': (context) => SplashScreen(),
           '/home': (context) => Mainpage(
                 username: null,
               ),

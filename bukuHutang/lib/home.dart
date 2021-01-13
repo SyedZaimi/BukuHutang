@@ -1,4 +1,4 @@
-//Hompage of the apps
+//Homepage of the apps
 
 import 'package:bukuHutang/authscreen.dart';
 import 'package:flutter/material.dart';

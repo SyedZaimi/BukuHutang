@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     } else {
       Timer(
-          Duration(seconds: 3),
+          Duration(seconds: 4),
           () => Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => AuthScreen()),
               (Route<dynamic> route) => false));
