@@ -1,5 +1,6 @@
 //Authentication screen
 
+//import 'package:bukuHutang/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bukuHutang/home.dart';
@@ -32,8 +33,11 @@ class _AuthScreenState extends State<AuthScreen> {
     );
     // final AuthResult authResult = await auth.signInWithCredential(credential);
     // final User user = authResult.user;
+    //Create a new document for user with the uid
+    User user;
+    //await DatabaseService(uid: user.uid).updateUserData('0', 100);
 
-    User user = (await auth.signInWithCredential(credential)).user;
+    user = (await auth.signInWithCredential(credential)).user;
     if (user != null) {
       name = user.displayName;
       email = user.email;
@@ -50,88 +54,92 @@ class _AuthScreenState extends State<AuthScreen> {
       Container(
         decoration: BoxDecoration(color: Colors.green[300]),
       ),
-      Expanded(
-          flex: 1,
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 50.0,
-                  child: Icon(
-                    Icons.account_balance_wallet_rounded,
-                    color: Colors.greenAccent,
-                    size: 50.0,
+      Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 50.0,
+                    child: Icon(
+                      Icons.account_balance_wallet_rounded,
+                      color: Colors.greenAccent,
+                      size: 50.0,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10.0),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'Buku Hutang',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 30),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
                   ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Visibility(
-                      child: CircularProgressIndicator(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Color(0xFFFAFAFA)),
-                      ),
-                      visible: isVisible,
-                    )
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    bottom: 50.0,
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Buku Hutang',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 30),
+                    ),
                   ),
-                  child: Align(
-                    alignment: Alignment(0, 0.9),
-                    child: SizedBox(
-                      height: 54.0,
-                      width: swidth / 1.45,
-                      child: RaisedButton(
-                        onPressed: () {
-                          setState(() {
-                            this.isVisible = true;
-                          });
-                          _signIn().whenComplete(() {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        Mainpage(username: name)),
-                                (Route<dynamic> route) => false);
-                          }).catchError((onError) {
-                            Navigator.pushReplacementNamed(context, "/auth");
-                          });
-                        },
-                        child: Text(
-                          'Sign in with Google',
-                          style: TextStyle(fontSize: 16),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Visibility(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Color(0xFFFAFAFA)),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0),
+                        visible: isVisible,
+                      )
+                    ],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(
+                      bottom: 50.0,
+                    ),
+                    child: Align(
+                      alignment: Alignment(0, 0.5),
+                      child: SizedBox(
+                        height: 54.0,
+                        width: swidth / 1.45,
+                        child: RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              this.isVisible = true;
+                            });
+
+                            _signIn().whenComplete(() {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Mainpage(username: name)),
+                                  (Route<dynamic> route) => false);
+                            }).catchError((onError) {
+                              Navigator.pushReplacementNamed(context, "/auth");
+                            });
+                          },
+                          child: Text(
+                            'Sign in with Google',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0),
+                          ),
+                          elevation: 5,
+                          color: Color(0xFFFAFAFA),
                         ),
-                        elevation: 5,
-                        color: Color(0xFFFAFAFA),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ))
+          ])
     ]));
   }
 }
