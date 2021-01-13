@@ -47,7 +47,7 @@ class DebtpageState extends State<Debtpage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text("BMI Status", textAlign: TextAlign.center),
+            title: new Text("Add debt", textAlign: TextAlign.center),
             content: Column(
               children: <Widget>[
                 Text('Input name and amount: '),
@@ -96,12 +96,19 @@ class DebtpageState extends State<Debtpage> {
       appBar: AppBar(
         title: Text(appTitle),
       ),
-      body: ListView.builder(
-        //itemCount: debt.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('yes'),
-          );
+      body: StreamBuilder<QuerySnapshot>(
+        stream: users.snapshots(),
+        builder: (context, snapshot) {
+          return !snapshot.hasData
+              ? Text('PLease Wait')
+              : ListView(
+                  children: snapshot.data.docs.map((documents) {
+                    return new ListTile(
+                      title: new Text(documents.data()['name'].toString()),
+                      subtitle: new Text(documents.data()['amount'].toString()),
+                    );
+                  }).toList(),
+                );
         },
       ),
       floatingActionButton: FloatingActionButton(
