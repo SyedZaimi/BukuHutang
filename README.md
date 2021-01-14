@@ -25,7 +25,7 @@ The main objective of our mobile application is to help people manage their debt
 Firstly, the user would have login using their Google account to access the application for security purposes. Then they would arrive to the main page where the total debt that you have towards people and the total amount that various people owe you displayed on the page. Below these total there are two buttons, the first navigates you to a page that lists all the person with the amount that you owe them. Likewise, the second page lists people and the amount that they owe you. In these two pages, there is an add button in the bottom left of the page that when clicked, a dialog box would pop up which lets you add a new debt transaction. You can also swipe through any of the specific debt transaction to delete the debt. There is also a person icon in the top right of the homepage which navigates you to your profile which displays your username and also your balance, which is the total amount that people you minus the total amount that you owe people.
 
     1. Login/Logout 
-    2. Count total debt from and to you 
+    2. Count total debt from and to you and also balance
     3. Add debt with date
     4. Delete debt with date
 
