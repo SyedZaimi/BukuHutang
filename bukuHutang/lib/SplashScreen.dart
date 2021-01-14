@@ -3,9 +3,9 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bukuHutang/home.dart';
-import 'package:bukuHutang/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:bukuHutang/authscreen.dart';
+
 
 class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
@@ -37,7 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (context) =>
-                    Mainpage(username: _auth.currentUser.displayName)),
+              Mainpage(username: _auth.currentUser.displayName,email: _auth.currentUser.email)
+              ),
             (Route<dynamic> route) => false),
       );
     } else {
