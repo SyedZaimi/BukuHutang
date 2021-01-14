@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key key, @required this.username}) : super(key: key);
+  Profile({Key key, @required this.username,@required this.email}) : super(key: key);
   final String username;
+  final String email;
   @override
 ProfileState createState() => ProfileState();
 }
@@ -17,12 +18,10 @@ class ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return  Scaffold(
         appBar: AppBar(
-          
-          backgroundColor: Colors.green,
-          title: Center(
-            child: const Text('Profile'),
-          ),
 
+           title: Text("Profile"),
+          backgroundColor: Colors.green,
+        
         ),
         body: ListView(
           children: <Widget>[
@@ -60,7 +59,7 @@ class ProfileState extends State<Profile> {
                     height: 30,
                   ),
                   Text(
-                    'Abdul Rahman Ahmad',
+                    widget.username,
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -68,7 +67,7 @@ class ProfileState extends State<Profile> {
                     ),
                   ),
                   Text(
-                    'man199824@gmail.com',
+                    widget.email,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
