@@ -23,6 +23,12 @@ class OwepageState extends State<Owepage> {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
+  deleteUser(docID) {
+    users.doc(docID).delete().catchError((e) {
+      print(e);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final appTitle = 'People who you owe: ';
@@ -49,25 +55,32 @@ class OwepageState extends State<Owepage> {
             title: new Text("Add debt", textAlign: TextAlign.center),
             content: Column(
               children: <Widget>[
-                Text('Input name and amount: '),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Name',
-                  ),
-                  onChanged: (text) {
-                    _setName(text);
-                  },
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Text('Input name and amount: '),
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Amount',
+                Container(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Name',
+                    ),
+                    onChanged: (text) {
+                      _setName(text);
+                    },
                   ),
-                  onChanged: (text) {
-                    _setAmount(text);
-                  },
-                  keyboardType: TextInputType.number,
+                ),
+                Container(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Amount',
+                    ),
+                    onChanged: (text) {
+                      _setAmount(text);
+                    },
+                    keyboardType: TextInputType.number,
+                  ),
                 ),
               ],
             ),
@@ -99,15 +112,46 @@ class OwepageState extends State<Owepage> {
         stream: users.snapshots(),
         builder: (context, snapshot) {
           return !snapshot.hasData
-              ? Text('Loading')
-              : ListView(
-                  children: snapshot.data.docs.map((documents) {
-                    return new ListTile(
-                      title: new Text(documents.data()['name'].toString()),
-                      subtitle: new Text(documents.data()['amount'].toString()),
+              ? Text('PLease Wait')
+              : ListView.builder(
+                  itemCount: snapshot.data.docs.length,
+                  itemBuilder: (context, index) {
+                    return Dismissible(
+                      // Each Dismissible must contain a Key. Keys allow Flutter to
+                      // uniquely identify widgets.
+                      key: Key(snapshot.data.docs[index].toString()),
+                      // Provide a function that tells the app
+                      // what to do after an item has been swiped away.
+                      onDismissed: (direction) {
+                        // Remove the item from the data source.
+                        deleteUser(snapshot.data.docs[index].id);
+                        // Then show a snackbar.
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text("Debt with " +
+                                snapshot.data.docs[index]
+                                    .data()['name']
+                                    .toString() +
+                                ' deleted!')));
+                      },
+                      background: Container(
+                        child: Center(
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                        ),
+                        color: Colors.red,
+                      ),
+                      child: new ListTile(
+                          title: new Text(snapshot.data.docs[index]
+                              .data()['name']
+                              .toString()),
+                          subtitle: new Text('RM' +
+                              snapshot.data.docs[index]
+                                  .data()['amount']
+                                  .toStringAsFixed(2))),
                     );
-                  }).toList(),
-                );
+                  });
         },
       ),
       floatingActionButton: FloatingActionButton(
