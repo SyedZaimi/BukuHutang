@@ -27,11 +27,14 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashScreen(),
           '/home': (context) => Mainpage(
                 username: null,
+                email :null,
               ),
           '/second': (context) => Debtpage(),
           '/third': (context) => Owepage(),
           '/profile': (context) => Profile(
-            username: null,
+             username: null,
+                email :null,
+
           ),
 
         });
