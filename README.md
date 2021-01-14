@@ -85,3 +85,6 @@ Firestore
       2. https://medium.com/@maffan/how-to-make-a-dismissible-listview-in-flutter-a9f730a751be
       3. https://api.flutter.dev/flutter/widgets/Dismissible-class.html
       4. https://flutter.dev/docs/cookbook/gestures/dismissible
+      5. https://medium.com/zipper-studios/the-keyboard-causes-the-bottom-overflowed-error-5da150a1c660
+      6. https://pub.dev/packages/date_form_field/example
+      7. https://pub.dev/packages/animated_splash_screen
