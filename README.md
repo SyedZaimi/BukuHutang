@@ -34,16 +34,16 @@ BukuHutang
 ## Task Distribution
 
 ### Syed Zaimi
-      1.
-      2.
+ 1.
+ 2.
       
  ### Rahman
-      1.
-      2.
+ 1.
+ 2.
       
 ### Hannah Huda
-      1.
-      2.
+ 1. User authentication - Login and logout using Google account
+ 2.
       
 ## References
 Flutter Authentication
