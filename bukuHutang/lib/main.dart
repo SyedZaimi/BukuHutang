@@ -4,6 +4,7 @@ import 'package:bukuHutang/home.dart';
 import 'package:bukuHutang/SplashScreen.dart';
 import 'package:bukuHutang/owepage.dart';
 import 'package:bukuHutang/debtpage.dart';
+import 'package:bukuHutang/profile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,10 @@ class MyApp extends StatelessWidget {
               ),
           '/second': (context) => Debtpage(),
           '/third': (context) => Owepage(),
+          '/profile': (context) => Profile(
+            username: null,
+          ),
+
         });
   }
 }
