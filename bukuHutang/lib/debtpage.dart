@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:date_form_field/date_form_field.dart';
+import 'package:intl/intl.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 CollectionReference users = FirebaseFirestore.instance.collection('debts');
@@ -14,12 +15,9 @@ class Debtpage extends StatefulWidget {
 }
 
 class DebtpageState extends State<Debtpage> {
-  Future<void> addUser(String name, double amount) {
+  Future<void> addUser(String name, double amount, String date) {
     return users
-        .add({
-          'name': name,
-          'amount': amount,
-        })
+        .add({'name': name, 'amount': amount, 'date': date})
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
@@ -35,10 +33,20 @@ class DebtpageState extends State<Debtpage> {
     final appTitle = 'People who you owe: ';
     String _name = "";
     double _amount = 0;
+    String _date = "";
+    DateTime firstDate = DateTime.now();
+    DateTime lastDate = DateTime(2100);
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
     void _setName(String name) {
       setState(() {
         _name = name;
+      });
+    }
+
+    void _setDate(String date) {
+      setState(() {
+        _date = date;
       });
     }
 
@@ -48,59 +56,109 @@ class DebtpageState extends State<Debtpage> {
       });
     }
 
+    Future<DateTime> showPicker() async {
+      DateTime date = await showDatePicker(
+        context: context,
+        initialDate: firstDate,
+        firstDate: firstDate,
+        lastDate: lastDate,
+      );
+
+      return date;
+    }
+
+    final _formKey = GlobalKey<FormState>();
+    final amountFocusNode = FocusNode();
+    final nameFocusNode = FocusNode();
+
     void _showDialog() {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: new Text("Add debt", textAlign: TextAlign.center),
-            content: Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(20),
-                  child: Text('Input name and amount: '),
-                ),
-                Container(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Name',
+              title: new Text("Add debt", textAlign: TextAlign.center),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      child: Text('Input name and amount: '),
                     ),
-                    onChanged: (text) {
-                      _setName(text);
-                    },
-                  ),
-                ),
-                Container(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Amount',
+                    Container(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Name',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter a value';
+                          }
+                          return null;
+                        },
+                        onChanged: (text) {
+                          _setName(text);
+                        },
+                        focusNode: nameFocusNode,
+                        keyboardType: TextInputType.text,
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context).requestFocus(nameFocusNode);
+                        },
+                      ),
                     ),
-                    onChanged: (text) {
-                      _setAmount(text);
-                    },
-                    keyboardType: TextInputType.number,
-                  ),
+                    SizedBox(height: 20.0),
+                    Container(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Amount',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter a value';
+                          }
+                          return null;
+                        },
+                        onChanged: (text) {
+                          _setAmount(text);
+                        },
+                        focusNode: amountFocusNode,
+                        keyboardType: TextInputType.number,
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context).requestFocus(amountFocusNode);
+                        },
+                      ),
+                    ),
+                    DateFormField(
+                      format: 'EEEE, MMM, d yyyy',
+                      showPicker: showPicker,
+                      onDateChanged: (DateTime date) {
+                        String newdate = formatter.format(date);
+                        _setDate(newdate);
+                      },
+                    ),
+                    Column(children: <Widget>[
+                      new FlatButton(
+                        child: new Text("Add"),
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            addUser(_name, _amount, _date);
+                            Navigator.of(context).pop();
+                          }
+                        },
+                      ),
+                      new FlatButton(
+                        child: new Text("Close"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      )
+                    ]),
+                  ],
                 ),
-              ],
-            ),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("Add"),
-                onPressed: () {
-                  addUser(_name, _amount);
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
+              ));
         },
       );
     }
