@@ -1,12 +1,15 @@
-//Homepage of the apps
+
 
 import 'package:bukuHutang/authscreen.dart';
+import 'package:bukuHutang/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class Mainpage extends StatefulWidget {
-  Mainpage({Key key, @required this.username}) : super(key: key);
+  Mainpage({Key key, @required this.username,@required this.email}) : super(key: key);
   final String username;
+  final String email;
   @override
   MainpageState createState() => MainpageState();
 }
@@ -20,9 +23,23 @@ class MainpageState extends State<Mainpage> {
     return Scaffold(
         appBar: AppBar(
           //title: Text('Buku Hutangmu'),
+          
           title: Text("Hi " + widget.username),
-          leading: Icon(Icons.person),
+        
           actions: <Widget>[
+             IconButton(
+               icon: Icon(Icons.person),
+              onPressed: ()  {
+                Navigator.push(context,
+                 MaterialPageRoute(
+                builder: (context) =>
+                    Profile(username: widget.username,email : widget.email))
+                 ); 
+                  
+              },
+              
+            ),
+           
             IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () async {
@@ -34,6 +51,7 @@ class MainpageState extends State<Mainpage> {
                     (Route<dynamic> route) => false);
               },
             ),
+            
           ],
         ),
         body: Center(
