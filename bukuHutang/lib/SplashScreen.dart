@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bukuHutang/home.dart';
+import 'package:bukuHutang/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:bukuHutang/authscreen.dart';
 
@@ -16,16 +17,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    initializeUser();
+    //initializeUser();
     navigateUser();
   }
 
-  Future initializeUser() async {
-    final User firebaseUser = FirebaseAuth.instance.currentUser;
-    await firebaseUser.reload();
+  //Future initializeUser() async {
+    //final User firebaseUser = FirebaseAuth.instance.currentUser;
+    //await firebaseUser.reload();
     //User _user = _auth.currentUser;
     // get User authentication status here
-  }
+  //}
 
   navigateUser() async {
     // checking whether user already loggedIn or not
