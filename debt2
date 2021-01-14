@@ -101,14 +101,17 @@ class DebtpageState extends State<Debtpage> {
         builder: (context, snapshot) {
           return !snapshot.hasData
               ? Text('PLease Wait')
-              : ListView(
-                  children: snapshot.data.docs.map((documents) {
+              : ListView.builder(
+                  itemCount: snapshot.data.docs.length,
+                  itemBuilder: (context, index) {
                     return new ListTile(
-                      title: new Text(documents.data()['name'].toString()),
-                      subtitle: new Text(documents.data()['amount'].toString()),
-                    );
-                  }).toList(),
-                );
+                        title: new Text(snapshot.data.docs[index]
+                            .data()['name']
+                            .toString()),
+                        subtitle: new Text(snapshot.data.docs[index]
+                            .data()['amount']
+                            .toString()));
+                  });
         },
       ),
       floatingActionButton: FloatingActionButton(
