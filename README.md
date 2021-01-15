@@ -51,8 +51,11 @@ BukuHutang
       5. Help other members regarding the connection with FireStore.
       
  ### Rahman
-      1.
-      2.
+      1. Create profile page, retrieves email and profile picture from current google sign-in to be displayed in the profile page.
+      2. Create and used a simple Splash Screen  plugins to create an Animation for buku hutang logo in the splash screen.
+      3. Retrieves the amount of debt & owe from firestore database to be calculated in the homepage and profile page with the help of Syed.
+      4. Calculates "your total debt", "total money people owe you" and "Your balance" and display it in homepage and profile page.
+      5. A bit alteration on the design, choosed a suitable color palletes for overall user interface.
       
 ### Hannah Huda
       1.
