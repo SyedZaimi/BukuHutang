@@ -1,26 +1,67 @@
 import 'package:bukuHutang/authscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key key, @required this.username,@required this.email}) : super(key: key);
+Profile({Key key, @required this.username,@required this.email,@required this.photo}) : super(key: key);
   final String username;
   final String email;
+  final String photo;
   @override
 ProfileState createState() => ProfileState();
 }
 
 
 class ProfileState extends State<Profile> {
-  // This widget is the root of your application.
-  
+
+Color dark = Color(0xff006a4e);
+Color darklight = Color(0xff2e856e);
+Color medium = Color(0xff5ca08e);
+Color light = Color(0xff8abaae);
+Color lightest = Color(0xffb8d6cd);
+
+  double sumdebt=0;
+  double sumowe=0;
+  double total=0;
+
+   @override
+  initState() {
+    super.initState();
+    queryValues();
+    queryValues2();
+    
+  }
+
+  void queryValues() {
+    FirebaseFirestore.instance
+        .collection('debts')
+        .snapshots()
+        .listen((snapshot) {
+      double tempTotal = snapshot.docs.fold(0, (tot, doc) => tot + doc.data()['amount']);
+      setState(() {sumdebt = tempTotal;});
+      debugPrint(sumdebt.toString());
+    });
+  }
+
+  void queryValues2() {
+    FirebaseFirestore.instance
+        .collection('owe')
+        .snapshots()
+        .listen((snapshot) {
+      double tempTotal = snapshot.docs.fold(0, (tot, doc) => tot + doc.data()['amount']);
+      setState(() {sumowe = tempTotal;});
+      debugPrint(sumowe.toString());
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
         appBar: AppBar(
 
            title: Text("Profile"),
-          backgroundColor: Colors.green,
+          backgroundColor:dark,
         
         ),
         body: ListView(
@@ -29,9 +70,9 @@ class ProfileState extends State<Profile> {
               height: 350,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.grey, Colors.grey],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
+                  colors: [dark, darklight],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                   stops: [0.5, 0.9],
                 ),
               ),
@@ -49,7 +90,7 @@ class ProfileState extends State<Profile> {
                         child: CircleAvatar(
                           radius: 80.0,
                           backgroundImage: NetworkImage(
-                              'https://lh3.googleusercontent.com/-OLMjcwoWPHk/XLaSAjx6nWI/AAAAAAAABdo/R1KdIo5aNYgO1OI2RGo9t1yMxSTTEJxvwCEwYBhgLKtMDAL1OcqwJ5dhLvF25Swdb84dmTm0ArjHWqRQnTgunDxqxXcP-kD4AanPTAqJRfmsvv8nkXTm-L-6Dcc1qJguOfyTFpDECGTwfoX2hFhjhVYskM5FzRGDZzblED5_Gsa7uQm-7PMN5jUh_MBFyCddwX7OOuSMR2Dh-JXd9-5NUONrkaKeLitz88wlWQ8OCq1iGBWhNFTV599OPKHG81MudDVtpoaZTHUsMSsYe6vpGqxWjFbszQ5JB5jAju5jnf5Q4ahd1ZOU1IcGcdlQRZwxrgfpcPot088WL6kZVrVotDhVKcRIRe5JkOIqsDhN0TrF-KKLm4WOP_rFB3qC5E4SYazO0oAOoxC5mfD-P5EZs6Hw2yVtK3qFMtMoNVOQE6xM-GL6d584HGl8hbULxRVGVhyOp10999IKuE21Iw0alEWP2cl4YKEDUTVMzaKaFBB6k7EMHnV_vsAyAK-jx7e2frNgxJnae80yQJc6PbAn50Lt-JfroPo_QaAZp1NBMAseIS0wNLlkdBJN2bGy0qtTvAy27aQsOoCccixYZXU02x2k-cm-hA-CogSBSW0V_9HOP_wxp85C-Bo8nAgd2SJXmKaDLVMWEuWScL8P79XNDUQ7dNR4w_-T8_wU/w140-h140-p/1721823%2527.jpg'),
+                              widget.photo),
                         ),
                       ),
                      
@@ -87,7 +128,7 @@ class ProfileState extends State<Profile> {
                 children: <Widget>[
 
                    Text(
-                    'Your total balance : RM 200',
+                    ('Your balance :  '+ (sumowe-sumdebt).toStringAsFixed(2)),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.normal,
@@ -99,7 +140,7 @@ class ProfileState extends State<Profile> {
                   ),
 
                  FlatButton(
-                  color: Colors.green,
+                  color: dark,
                    textColor: Colors.white,
                    disabledColor: Colors.grey,
                    disabledTextColor: Colors.black,

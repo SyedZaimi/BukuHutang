@@ -10,7 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 String name;
 String email;
-String imageUrl;
+String photo;
 final FirebaseAuth auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -22,6 +22,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool isVisible = false;
 
   Future<User> _signIn() async {
@@ -47,7 +48,7 @@ class _AuthScreenState extends State<AuthScreen> {
     if (user != null) {
       name = user.displayName;
       email = user.email;
-      imageUrl = user.photoURL;
+      photo = user.photoURL;
       /*firestore
           .collection("users")
           .document(user.uid)
@@ -71,7 +72,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
         body: Stack(children: <Widget>[
       Container(
-        decoration: BoxDecoration(color: Colors.green[300]),
+        decoration: BoxDecoration(color: Colors.greenAccent),
       ),
       Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -135,8 +136,11 @@ class _AuthScreenState extends State<AuthScreen> {
                             _signIn().whenComplete(() {
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          Mainpage(username: name)),
+                                      builder: (context) => Mainpage(
+                                          username:
+                                              _auth.currentUser.displayName,
+                                          email: _auth.currentUser.email,
+                                          photo: _auth.currentUser.photoURL)),
                                   (Route<dynamic> route) => false);
                             }).catchError((onError) {
                               Navigator.pushReplacementNamed(context, "/auth");
