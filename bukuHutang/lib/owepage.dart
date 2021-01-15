@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 CollectionReference users =
-    FirebaseFirestore.instance.collection('oweCollection');
+    FirebaseFirestore.instance.collection('owe');
 
 class Owepage extends StatefulWidget {
   Owepage({Key key}) : super(key: key);
