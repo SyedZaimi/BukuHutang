@@ -58,8 +58,11 @@ BukuHutang
       5. A bit alteration on the design, choosed a suitable color palletes for overall user interface.
       
 ### Hannah Huda
-      1.
-      2.
+      1. Designed the screen navigation and implement the routing process in root widget. 
+      2. Create, setup and configure Firebase project.
+      3. Implement Google sign-in and sign-out authentication in the project.
+      4. Implement a method in Splash Screen to check if user already signed in before proceed to authentication or home screen.
+      5. Assisted Syed validating form in debt and owe screen.
       
 ## References
 Flutter Authentication
@@ -68,10 +71,6 @@ Flutter Authentication
       2. http://www.codeplayon.com/2020/02/simple-flutter-login-screen-ui-example/
       3. https://firebase.flutter.dev/docs/overview/#initializing-flutterfire
       
-Firebase
-
-      1. https://firebase.google.com/docs/projects/learn-more#config-files-objects
-      2. https://firebase.google.com/docs/projects/learn-more#config-files-objects
       
 Firestore
 
@@ -81,6 +80,8 @@ Firestore
       4. https://medium.com/flutterdevs/using-firebase-firestore-in-flutter-b0ea2c62bc7
       5. https://www.javatpoint.com/firebase-update-and-delete-in-firestore
       6. https://pub.dev/documentation/cloud_firestore/latest/cloud_firestore/QuerySnapshot/docs.html
+      7. https://firebase.google.com/docs/projects/learn-more#config-files-objects
+      
       
  Others 
       
