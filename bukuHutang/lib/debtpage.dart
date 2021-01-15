@@ -134,6 +134,7 @@ class DebtpageState extends State<Debtpage> {
                                       .requestFocus(amountFocusNode);
                                 },
                               ),
+                              SizedBox(height: 20.0),
                               DateFormField(
                                 format: 'EEEE, MMM, d yyyy',
                                 showPicker: showPicker,
@@ -141,6 +142,10 @@ class DebtpageState extends State<Debtpage> {
                                   String newdate = formatter.format(date);
                                   _setDate(newdate);
                                 },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Date',
+                                ),
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Please enter a value';
@@ -235,3 +240,4 @@ class DebtpageState extends State<Debtpage> {
     );
   }
 }
+
