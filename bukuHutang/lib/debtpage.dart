@@ -85,59 +85,71 @@ class DebtpageState extends State<Debtpage> {
                       child: Text('Input name and amount: '),
                     ),
                     Container(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Name',
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter a value';
-                          }
-                          return null;
-                        },
-                        onChanged: (text) {
-                          _setName(text);
-                        },
-                        focusNode: nameFocusNode,
-                        keyboardType: TextInputType.text,
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          FocusScope.of(context).requestFocus(nameFocusNode);
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    Container(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Amount',
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter a value';
-                          }
-                          return null;
-                        },
-                        onChanged: (text) {
-                          _setAmount(text);
-                        },
-                        focusNode: amountFocusNode,
-                        keyboardType: TextInputType.number,
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          FocusScope.of(context).requestFocus(amountFocusNode);
-                        },
-                      ),
-                    ),
-                    DateFormField(
-                      format: 'EEEE, MMM, d yyyy',
-                      showPicker: showPicker,
-                      onDateChanged: (DateTime date) {
-                        String newdate = formatter.format(date);
-                        _setDate(newdate);
-                      },
+                      child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Name',
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter a value';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (text) {
+                                  _setName(text);
+                                },
+                                focusNode: nameFocusNode,
+                                keyboardType: TextInputType.text,
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  FocusScope.of(context)
+                                      .requestFocus(nameFocusNode);
+                                },
+                              ),
+                              SizedBox(height: 20.0),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Amount',
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter a value';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (text) {
+                                  _setAmount(text);
+                                },
+                                focusNode: amountFocusNode,
+                                keyboardType: TextInputType.number,
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  FocusScope.of(context)
+                                      .requestFocus(amountFocusNode);
+                                },
+                              ),
+                              DateFormField(
+                                format: 'EEEE, MMM, d yyyy',
+                                showPicker: showPicker,
+                                onDateChanged: (DateTime date) {
+                                  String newdate = formatter.format(date);
+                                  _setDate(newdate);
+                                },
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter a value';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
+                          )),
                     ),
                     Column(children: <Widget>[
                       new FlatButton(
