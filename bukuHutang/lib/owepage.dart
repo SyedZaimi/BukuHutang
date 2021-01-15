@@ -225,7 +225,9 @@ class OwepageState extends State<Owepage> {
                           subtitle: new Text('RM' +
                               snapshot.data.docs[index]
                                   .data()['amount']
-                                  .toStringAsFixed(2))),
+                                  .toStringAsFixed(2) +
+                              '\n Date: ' +
+                              snapshot.data.docs[index].data()['date'])),
                     );
                   });
         },
